@@ -33,9 +33,12 @@
 	"about.title": "理解世界，顺手造物",
 	"about.description": "我认为需要通向主动引入 bias 来理解世界。审美是 bias，判断是 bias，创造则是把这些 bias 一点点做进世界里。世界是「头上长角的」。",
 	"lang.en-US": "英文",
-	"lang.zh-Hans-CN": "中文",
-	"lang.ja-JP": "日文",
-	"blog.translation.notice": "本文由AI模型自{linkStart}{lang}原文{linkEnd}翻译，务请留意可能存在的错漏。",
+		"lang.zh-Hans-CN": "中文",
+		"lang.ja-JP": "日文",
+		"blog.fallback.notice": "这篇文章目前还没有{requestedLang}版本，正在展示现有的{linkStart}{availableLang}版本{linkEnd}。",
+		"blog.translation.notice": "本文由AI模型自{linkStart}{lang}原文{linkEnd}翻译，务请留意可能存在的错漏。",
+		"blog.feed.fallbackNotice": "当前{lang}还没有文章，所以下方列表会回退展示其他语言的现有文章。",
+		"blog.feed.langNotice": "本文为{lang}",
 	"site.title": "丁立 | Boris Ding",
 	"site.description": "欢迎来到我的网站！"
 }

@@ -1,0 +1,62 @@
+---
+import Icon from '../Icon.astro'
+import { cn } from '@/uikit/lib/utils'
+
+type LocaleItem = {
+	href: string
+	label: string
+	active: boolean
+}
+
+interface Props {
+	label: string
+	items: LocaleItem[]
+}
+
+const { label, items } = Astro.props
+---
+
+<details class="relative">
+	<summary
+		aria-label={label}
+		class="flex cursor-pointer list-none items-center justify-center rounded-full text-subtle transition hover:text-foreground focus-visible:outline-none focus-visible:text-foreground"
+	>
+		<Icon name="basic/international" aria-hidden="true" class="size-5" />
+	</summary>
+
+	<div class="absolute right-0 top-full mt-2 min-w-38 rounded-2xl bg-popover p-2 text-popover-foreground shadow-lg ring-1 ring-foreground/10">
+		<ul class="m-0 list-none p-0">
+			{
+				items.map(item => (
+					<li>
+						<a
+							href={item.href}
+							class={cn(
+								'block rounded-xl px-4 py-3 text-sm font-medium no-underline outline-hidden transition',
+								item.active
+									? 'bg-accent text-primary'
+									: 'text-foreground hover:bg-accent hover:text-accent-foreground'
+							)}
+						>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</details>
+
+<style>
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	details > summary::marker {
+		content: '';
+	}
+	
+	details[open] > summary {
+		color: var(--foreground);
+	}
+</style>

@@ -1,6 +1,6 @@
 import { useLocalStorageState } from 'ahooks'
-import { Moon, Sun } from 'lucide-react'
 import { useEffect } from 'react'
+import { MoonIcon, SunIcon } from './AppIcon'
 
 type Theme = 'light' | 'dark'
 
@@ -41,9 +41,9 @@ export default function ThemeToggle() {
 			aria-label={resolved === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
 			className="flex cursor-pointer items-center justify-center rounded-full text-subtle transition hover:text-foreground focus-visible:outline-none focus-visible:text-foreground">
 			{resolved === 'dark' ? (
-				<Sun className="size-5" strokeWidth={1.8} />
+				<SunIcon className="size-5" />
 			) : (
-				<Moon className="size-5" strokeWidth={1.8} />
+				<MoonIcon className="size-5" />
 			)}
 		</button>
 	)

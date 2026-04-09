@@ -1,12 +1,12 @@
 ---
-import { Menu as MenuIcon } from 'lucide-react'
-import LanguageDropdown from '@/common/components/LanguageDropdown'
-import ThemeToggle from '@/common/components/ThemeToggle'
+import Icon from './Icon.astro'
 import { getSiteTitle } from '../consts'
 import { LOCALE_LABELS, LOCALES, type Locale } from '../i18n/config'
 import { localePath, t } from '../i18n/utils'
 import HeaderBrand from './header/HeaderBrand.astro'
+import HeaderLanguageMenu from './header/HeaderLanguageMenu.astro'
 import HeaderNavLinks from './header/HeaderNavLinks.astro'
+import HeaderThemeToggle from './header/HeaderThemeToggle.astro'
 
 interface Props {
 	lang: Locale
@@ -63,13 +63,13 @@ const localeItems = LOCALES.map(locale => ({
 
 				<div class="relative z-10 ml-auto flex shrink-0 items-center sm:gap-3">
 					<div class="flex w-12 items-center justify-center sm:w-auto">
-						<LanguageDropdown client:load label={t(lang, 'nav.languages')} items={localeItems} />
+						<HeaderLanguageMenu label={t(lang, 'nav.languages')} items={localeItems} />
 					</div>
 
 					<div class="hidden h-3 w-px rounded-full bg-black/12 sm:block"></div>
 
 					<div class="flex w-12 items-center justify-center sm:w-auto">
-						<ThemeToggle client:only="react" />
+						<HeaderThemeToggle />
 					</div>
 
 					<label
@@ -77,7 +77,7 @@ const localeItems = LOCALES.map(locale => ({
 						class="flex w-12 cursor-pointer items-center justify-center text-subtle transition hover:text-foreground sm:hidden"
 					>
 						<span class="sr-only">{t(lang, 'nav.menu')}</span>
-						<MenuIcon aria-hidden="true" className="size-7" strokeWidth={1.8} />
+						<Icon name="basic/hamburger-button" aria-hidden="true" class="size-7" />
 					</label>
 				</div>
 			</div>

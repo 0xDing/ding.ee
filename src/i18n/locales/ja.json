@@ -33,9 +33,12 @@
 	"about.title": "世界を理解し、その流れで何かをつくる",
 	"about.description": "世界を理解することは、より自覚的にバイアスを引き受けることへ向かうべきだと思っている。美意識はバイアスであり、判断もまたバイアスであり、創造とは、そうしたバイアスを少しずつ世界のなかに刻み込んでいくことだ。",
 	"lang.en-US": "英語",
-	"lang.zh-Hans-CN": "中国語",
-	"lang.ja-JP": "日本語",
-	"blog.translation.notice": "この記事はAIモデルにより{linkStart}{lang}の原文{linkEnd}から翻訳されたものです。誤りや不正確な箇所がある可能性がありますのでご了承ください。",
+		"lang.zh-Hans-CN": "中国語",
+		"lang.ja-JP": "日本語",
+		"blog.fallback.notice": "この記事はまだ{requestedLang}版がありません。現在は利用可能な{linkStart}{availableLang}版{linkEnd}を表示しています。",
+		"blog.translation.notice": "この記事はAIモデルにより{linkStart}{lang}の原文{linkEnd}から翻訳されたものです。誤りや不正確な箇所がある可能性がありますのでご了承ください。",
+		"blog.feed.fallbackNotice": "{lang}の記事がまだないため、以下の一覧では他言語で公開済みの記事を表示しています。",
+		"blog.feed.langNotice": "この記事は{lang}です",
 	"site.title": "丁立 | Boris Ding",
 	"site.description": "ウェブサイトへようこそ！"
 }

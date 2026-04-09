@@ -1,9 +1,8 @@
 ---
-import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import type { Locale } from '../i18n/config'
 import { localePath, t } from '../i18n/utils'
-import { getSlug, type LocalizedTagGroup } from '../lib/content'
+import { getLang, getSlug, type LocalizedTagGroup } from '../lib/content'
 import BlogTagList from './BlogTagList.astro'
 import FormattedDate from './FormattedDate.astro'
 
@@ -13,16 +12,31 @@ interface Props {
 	tags: LocalizedTagGroup[]
 	activeTagSlug?: string
 	pageTitle: string
+	fallbackNotice?: string
 }
 
-const { posts, lang, tags, activeTagSlug, pageTitle } = Astro.props
+const { posts, lang, tags, activeTagSlug, pageTitle, fallbackNotice } = Astro.props
 const featuredPost = posts[0]
 const remainingPosts = posts.slice(1)
 const activeTag = activeTagSlug ? tags.find(tag => tag.slug === activeTagSlug) : undefined
+
+function fallbackLangLabel(post: CollectionEntry<'blog'>): string | undefined {
+	const postLang = getLang(post.id)
+	if (!postLang || postLang === lang) return undefined
+	return t(lang, 'blog.feed.langNotice', { lang: t(lang, `lang.${postLang}`) })
+}
 ---
 
 <section class="mx-auto max-w-300 pb-14 pt-6 sm:pt-10">
 	<h1 class="sr-only">{pageTitle}</h1>
+
+	{
+		fallbackNotice && (
+			<div class="mb-7 rounded-md border border-border bg-yellow-50 p-4 text-sm text-subtle dark:bg-yellow-950" role="alert">
+				<p class="not-prose m-0">⚠️ {fallbackNotice}</p>
+			</div>
+		)
+	}
 
 	{
 		activeTag && (
@@ -53,10 +67,10 @@ const activeTag = activeTagSlug ? tags.find(tag => tag.slug === activeTagSlug) :
 									href={localePath(lang, `${getSlug(featuredPost.id)}`)}
 									class="block min-h-full overflow-hidden bg-muted no-underline md:col-span-4"
 								>
-									<Image
+									<img
 										width={1200}
 										height={800}
-										src={featuredPost.data.heroImage}
+										src={featuredPost.data.heroImage.src}
 										alt=""
 										class="block aspect-3/2 h-full min-h-80 w-full object-cover transition duration-500 group-hover:scale-[1.02]"
 									/>
@@ -74,7 +88,14 @@ const activeTag = activeTagSlug ? tags.find(tag => tag.slug === activeTagSlug) :
 							<p class="mt-5 max-w-md text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
 								{featuredPost.data.description}
 							</p>
-							<div class="mt-auto flex items-end justify-end pt-10 text-sm text-subtle sm:pt-12 md:pt-16">
+							{
+									fallbackLangLabel(featuredPost) && (
+										<div class="mt-6 rounded-md border border-border bg-yellow-50 dark:bg-yellow-950 px-3 py-2 text-sm text-subtle">
+											⚠️ {fallbackLangLabel(featuredPost)}
+										</div>
+									)
+								}
+								<div class="mt-auto flex items-end justify-end pt-10 text-sm text-subtle sm:pt-12 md:pt-16">
 								<p class="m-0">
 									<FormattedDate date={featuredPost.data.pubDate} lang={lang} />
 								</p>
@@ -97,10 +118,10 @@ const activeTag = activeTagSlug ? tags.find(tag => tag.slug === activeTagSlug) :
 														class="block overflow-hidden bg-muted no-underline"
 													>
 														<div class="overflow-hidden bg-muted">
-															<Image
+															<img
 																width={960}
 																height={540}
-																src={post.data.heroImage}
+																src={post.data.heroImage.src}
 																alt=""
 																class="block aspect-video w-full object-cover transition duration-500 group-hover:scale-[1.02]"
 															/>
@@ -119,6 +140,13 @@ const activeTag = activeTagSlug ? tags.find(tag => tag.slug === activeTagSlug) :
 												<p class="mt-4 text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
 													{post.data.description}
 												</p>
+												{
+													fallbackLangLabel(post) && (
+														<div class="mt-4 rounded-md border border-border bg-yellow-50 dark:bg-yellow-950 px-3 py-2 text-sm text-subtle">
+															⚠️ {fallbackLangLabel(post)}
+														</div>
+													)
+												}
 												<div class="mt-auto flex items-end justify-end pt-8 text-sm text-subtle">
 													<p class="m-0">
 														<FormattedDate date={post.data.pubDate} lang={lang} />

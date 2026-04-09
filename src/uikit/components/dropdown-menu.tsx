@@ -1,6 +1,6 @@
 import { Menu as MenuPrimitive } from '@base-ui/react/menu'
-import { CheckIcon, ChevronRightIcon } from 'lucide-react'
 import type * as React from 'react'
+import { CheckIcon, ChevronRightIcon } from '@/common/components/AppIcon'
 import { cn } from '@/uikit/lib/utils'
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {

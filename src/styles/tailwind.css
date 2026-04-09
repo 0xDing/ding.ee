@@ -2,6 +2,7 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
+@import "katex/dist/katex.min.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 @plugin "@tailwindcss/typography";
@@ -99,6 +100,10 @@
 		font-style: normal;
 		font-display: swap;
 	}
+
+	.prose .katex-display {
+    	@apply text-foreground;
+  	}
 
 	:root {
 		--background: #f7f7f9;

@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets'
 import avatarImage from '../assets/avatar.jpg'
 
 type AvatarSize = 32 | 40 | 126
@@ -37,12 +36,11 @@ const avatarStyles: Record<AvatarSize, { radiusClass: string; remSize: string }>
 	]}
 	style={`width: ${avatarStyles[size].remSize}; height: ${avatarStyles[size].remSize};`}
 >
-	<Image
-		src={avatarImage}
+	<img
+		src={avatarImage.src}
 		alt={alt}
 		width={size}
 		height={size}
-		sizes={`${size}px`}
 		class:list={['block size-full object-cover', imageClass]}
 	/>
 </div>

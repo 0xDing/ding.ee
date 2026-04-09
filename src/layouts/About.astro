@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import BaseHead from '../components/BaseHead.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
@@ -42,11 +41,11 @@ const description = t(lang, 'about.description')
 				{
 					heroImage && (
 						<div class="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-border bg-card shadow-xl sm:mt-12">
-							<Image
+							<img
 								width={1440}
 								height={810}
-								src={heroImage}
-								alt=""
+								src={heroImage.src}
+								alt={`${title} cover image`}
 								class="block w-full object-cover"
 							/>
 						</div>

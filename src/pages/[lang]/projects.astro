@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets'
 import ProjectsHeroImage from '../../assets/pages/projects-cover.svg'
 import BaseHead from '../../components/BaseHead.astro'
 import Breadcrumb from '../../components/Breadcrumb.astro'
@@ -39,9 +38,9 @@ const sources = ['all', 'github', 'appstore', 'huggingface', 'business'] as cons
 
 			<div class="px-4 sm:px-6">
 				<div class="relative overflow-hidden rounded-2xl shadow-xl">
-					<Image
-						src={ProjectsHeroImage}
-						alt=""
+					<img
+						src={ProjectsHeroImage.src}
+						alt="Projects cover image"
 						width={1920}
 						height={1080}
 						class="block aspect-2/1 w-full object-cover sm:aspect-5/2"

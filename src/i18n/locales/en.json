@@ -33,9 +33,12 @@
 	"about.title": "Making Sense of the World, Building Things Along the Way",
 	"about.description": "I believe understanding the world should lead us toward a more self-aware embrace of bias. Taste is bias. Judgment is bias. Creation is the act of slowly inscribing those biases into the world. The world, after all, has horns.",
 	"lang.en-US": "English",
-	"lang.zh-Hans-CN": "Chinese",
-	"lang.ja-JP": "Japanese",
-	"blog.translation.notice": "This article was translated by AI from the {linkStart}original {lang} text{linkEnd}. Please note there may be errors or inaccuracies.",
+		"lang.zh-Hans-CN": "Chinese",
+		"lang.ja-JP": "Japanese",
+		"blog.fallback.notice": "This article is not available in {requestedLang} yet. You are viewing the available {linkStart}{availableLang} version{linkEnd} instead.",
+		"blog.translation.notice": "This article was translated by AI from the {linkStart}original {lang} text{linkEnd}. Please note there may be errors or inaccuracies.",
+		"blog.feed.fallbackNotice": "There are no articles in {lang} yet, so the list below falls back to available articles in other languages.",
+		"blog.feed.langNotice": "This article is in {lang}",
 	"site.title": "丁立 | Boris Ding",
 	"site.description": "Welcome to my website!"
 }

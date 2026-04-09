@@ -1,5 +1,5 @@
 ---
-import { ChevronRight } from 'lucide-react'
+import Icon from './Icon.astro'
 import type { Locale } from '../i18n/config'
 import { localePath, t } from '../i18n/utils'
 
@@ -23,7 +23,9 @@ const allItems: BreadcrumbItem[] = [{ label: t(lang, 'breadcrumb.home'), href: l
 		{
 			allItems.map((item, i) => (
 				<li class="flex items-center gap-1.5">
-					{i > 0 && <ChevronRight className="size-3.5 shrink-0 text-subtle" aria-hidden="true" />}
+					{
+						i > 0 && <Icon name="basic/right" aria-hidden="true" class="size-3.5 shrink-0 text-subtle" />
+					}
 					{item.href && i < allItems.length - 1 ? (
 						<a
 							href={item.href}

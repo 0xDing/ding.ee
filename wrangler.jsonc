@@ -3,15 +3,20 @@
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"compatibility_date": "2026-04-01",
 	"compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
-  "assets": {
-    "binding": "ASSETS",
-    "directory": "./dist/client"
-  },
-  "observability": {
-    "enabled": true
-  }
-
+		"global_fetch_strictly_public",
+		"nodejs_compat"
+	],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "./dist/client"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"kv_namespaces": [
+		{
+			"binding": "ding-ee-kv",
+			"id": "d6b0dccbd633473f89af5412ad4320f3"
+		}
+	]
 }

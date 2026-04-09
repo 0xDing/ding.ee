@@ -5,6 +5,7 @@ import BlogPost from '../../layouts/BlogPost.astro'
 import {
 	estimateReadingTime,
 	getAllSlugs,
+	getLang,
 	getLocalizedPost,
 	getOriginalLocale,
 	getSlug,
@@ -32,9 +33,19 @@ const { Content, headings } = await renderPost(post)
 const tocHeadings: MarkdownHeading[] = headings.filter(heading => heading.depth === 2 || heading.depth === 3)
 const readingMinutes = estimateReadingTime(post.body ?? '')
 const postSlug = getSlug(post.id)
+const postLocale = getLang(post.id)
+const fallbackLocale = postLocale && postLocale !== locale ? postLocale : undefined
 const originalLocale = post.data.original ? undefined : await getOriginalLocale(postSlug)
 ---
 
-<BlogPost {...post.data} headings={tocHeadings} readingMinutes={readingMinutes} lang={locale} slug={postSlug} originalLocale={originalLocale}>
+<BlogPost
+	{...post.data}
+	headings={tocHeadings}
+	readingMinutes={readingMinutes}
+	lang={locale}
+	slug={postSlug}
+	fallbackLocale={fallbackLocale}
+	originalLocale={originalLocale}
+>
 	<Content />
 </BlogPost>

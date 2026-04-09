@@ -1,5 +1,3 @@
-import { Globe } from 'lucide-react'
-
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -7,6 +5,7 @@ import {
 	DropdownMenuTrigger
 } from '@/uikit/components/dropdown-menu'
 import { cn } from '@/uikit/lib/utils'
+import { GlobeIcon } from './AppIcon'
 
 type LocaleItem = {
 	href: string
@@ -26,7 +25,7 @@ export default function LanguageDropdown({ label, items }: LanguageDropdownProps
 				type="button"
 				aria-label={label}
 				className="flex cursor-pointer items-center justify-center rounded-full text-subtle transition hover:text-foreground focus-visible:outline-none focus-visible:text-foreground">
-				<Globe className="size-5" strokeWidth={1.8} />
+				<GlobeIcon className="size-5" />
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="end" sideOffset={4} className="min-w-38 rounded-2xl p-2">

@@ -6,7 +6,7 @@ import Header from '../../../components/Header.astro'
 import { getSiteTitle } from '../../../consts'
 import { BCP47, isValidLocale, LOCALES, type Locale } from '../../../i18n/config'
 import { t } from '../../../i18n/utils'
-import { getLocalizedPostsByTag, getLocalizedTagGroups } from '../../../lib/content'
+import { getLang, getLocalizedPostsByTag, getLocalizedTagGroups } from '../../../lib/content'
 
 export async function getStaticPaths() {
 	const paths = await Promise.all(
@@ -31,6 +31,10 @@ if (!activeTag) return Astro.redirect(`/${locale}/`)
 
 const pageTitle = `${activeTag.label} | ${t(locale, 'blog.index.title')} | ${getSiteTitle(locale)}`
 const pageDescription = `${t(locale, 'blog.index.description')} ${activeTag.label}.`
+const fallbackNotice =
+	activeTag.posts.length > 0 && activeTag.posts.every(post => getLang(post.id) !== locale)
+		? t(locale, 'blog.feed.fallbackNotice', { lang: t(locale, `lang.${locale}`) })
+		: undefined
 ---
 
 <!doctype html>
@@ -52,6 +56,7 @@ const pageDescription = `${t(locale, 'blog.index.description')} ${activeTag.labe
 				lang={locale}
 				activeTagSlug={activeTag.slug}
 				pageTitle={pageTitle}
+				fallbackNotice={fallbackNotice}
 			/>
 		</main>
 		<Footer lang={locale} />

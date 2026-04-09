@@ -1,11 +1,11 @@
 ---
-import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import type { MarkdownHeading } from 'astro'
 import BaseHead from '../components/BaseHead.astro'
 import Breadcrumb from '../components/Breadcrumb.astro'
 import Footer from '../components/Footer.astro'
 import FormattedDate from '../components/FormattedDate.astro'
+import GiscusComments from '../components/GiscusComments.astro'
 import Header from '../components/Header.astro'
 import ProfileAvatar from '../components/ProfileAvatar.astro'
 import type { Locale } from '../i18n/config'
@@ -17,12 +17,13 @@ type BlogData = CollectionEntry<'blog'>['data']
 
 type Props = Pick<BlogData, 'title' | 'description' | 'pubDate'> &
 	Partial<Pick<BlogData, 'updatedDate' | 'heroImage' | 'tags'>> & {
-		lang?: Locale
-		headings?: MarkdownHeading[]
-		readingMinutes?: number
-		slug?: string
-		originalLocale?: Locale
-	}
+			lang?: Locale
+			headings?: MarkdownHeading[]
+			readingMinutes?: number
+			slug?: string
+			fallbackLocale?: Locale
+			originalLocale?: Locale
+		}
 
 const {
 	title,
@@ -31,13 +32,15 @@ const {
 	updatedDate,
 	heroImage,
 	tags = [],
-	headings = [],
-	readingMinutes,
-	lang: rawLang = 'en-US',
-	slug,
-	originalLocale
-} = Astro.props
+		headings = [],
+		readingMinutes,
+		lang: rawLang = 'en-US',
+		slug,
+		fallbackLocale,
+		originalLocale
+	} = Astro.props
 const lang: Locale = rawLang ?? 'en'
+const fallbackHref = fallbackLocale && slug ? localePath(fallbackLocale, slug) : undefined
 const originalHref = originalLocale && slug ? localePath(originalLocale, slug) : undefined
 const path = slug ? `${slug}` : undefined
 const tocHeadings = headings.filter(heading => heading.depth === 2 || heading.depth === 3)
@@ -109,19 +112,19 @@ const hasSidebar = Boolean(readingMinutes) || tocHeadings.length > 0
 								}
 							</div>
 						</div>
-						{
-							heroImage && (
-								<div class="overflow-hidden rounded-[10px] border border-border bg-card shadow-xl">
-									<Image
-										width={1440}
-										height={810}
-										src={heroImage}
-										alt=""
-										class="block aspect-video w-full object-cover"
-									/>
-								</div>
-							)
-						}
+							{
+								heroImage && (
+									<div class="overflow-hidden rounded-[10px] border border-border bg-card shadow-xl">
+										<img
+											width={1440}
+											height={810}
+											src={heroImage.src}
+											alt=""
+											class="block aspect-video w-full object-cover"
+										/>
+									</div>
+								)
+							}
 					</div>
 				</div>
 				<div class="px-4 pb-16 sm:px-6 sm:pb-20">
@@ -173,27 +176,52 @@ const hasSidebar = Boolean(readingMinutes) || tocHeadings.length > 0
 								</aside>
 							)
 						}
-						<div
-							class="prose prose-zinc dark:prose-invert max-w-none min-w-0 xl:col-span-3 prose-headings:mb-3 prose-headings:font-semibold prose-headings:leading-tight prose-h2:mt-14 prose-h2:text-3xl prose-h3:mt-10 prose-h3:text-2xl prose-h4:mt-8 prose-h4:text-xl prose-p:mb-8 prose-p:leading-8 prose-a:text-primary prose-a:no-underline hover:prose-a:text-primary-hover prose-strong:font-bold prose-strong:text-ink prose-blockquote:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:text-xl prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-ink prose-hr:my-10 prose-hr:border-line prose-img:rounded-2xl prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-2xl prose-pre:bg-ink prose-pre:px-6 prose-pre:py-6 prose-pre:font-mono prose-pre:text-sm prose-pre:leading-relaxed prose-pre:text-white prose-code:rounded-sm prose-code:bg-line prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-ink prose-ul:mb-8 prose-ol:mb-8 prose-li:my-2 prose-table:mb-8 prose-table:w-full prose-th:border prose-th:border-line prose-th:px-3 prose-th:py-2 prose-th:text-left prose-th:text-ink prose-td:border prose-td:border-line prose-td:px-3 prose-td:py-2 [&_blockquote_p]:mb-0 [&_code::before]:content-none [&_code::after]:content-none [&_pre_code]:rounded-none [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-inherit [&_pre_code::before]:content-none [&_pre_code::after]:content-none [&_h2]:scroll-mt-28 [&_h3]:scroll-mt-28 [&_textarea]:w-full [&>p:first-of-type]:text-base [&>p:first-of-type]:leading-8 [&>p:first-of-type]:font-medium [&>p:first-of-type]:text-ink"
-						>
-									{
-				originalLocale && originalHref && (
-					<div class="rounded-md border border-border bg-yellow-50 dark:bg-yellow-950 p-4 text-sm text-subtle" aria-role="alert">
-						<p class="not-prose" set:html={
-							'⚠️ ' + t(lang, 'blog.translation.notice', {
-								lang: t(lang, `lang.${originalLocale}`),
-								linkStart: `<a href="${originalHref}" class="font-medium text-primary no-underline hover:text-primary-hover">`,
-								linkEnd: '</a>',
-							})
-						} />
-					</div>
-				)
-			}
-							<slot />
+							<div class="min-w-0 xl:col-span-3">
+								<div
+									class="prose prose-zinc dark:prose-invert max-w-none prose-headings:mb-3 prose-headings:font-semibold prose-headings:leading-tight prose-h2:mt-14 prose-h2:text-3xl prose-h3:mt-10 prose-h3:text-2xl prose-h4:mt-8 prose-h4:text-xl prose-p:mb-8 prose-p:leading-8 prose-a:text-primary prose-a:no-underline hover:prose-a:text-primary-hover prose-strong:font-bold prose-strong:text-ink prose-blockquote:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:text-xl prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-ink prose-hr:my-10 prose-hr:border-line prose-img:rounded-2xl prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-2xl prose-pre:bg-ink prose-pre:px-6 prose-pre:py-6 prose-pre:font-mono prose-pre:text-sm prose-pre:leading-relaxed prose-pre:text-white prose-code:rounded-sm prose-code:bg-line prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-ink prose-ul:mb-8 prose-ol:mb-8 prose-li:my-2 prose-table:mb-8 prose-table:w-full prose-th:border prose-th:border-line prose-th:px-3 prose-th:py-2 prose-th:text-left prose-th:text-ink prose-td:border prose-td:border-line prose-td:px-3 prose-td:py-2 [&_blockquote_p]:mb-0 [&_code::before]:content-none [&_code::after]:content-none [&_pre_code]:rounded-none [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-inherit [&_pre_code::before]:content-none [&_pre_code::after]:content-none [&_h2]:scroll-mt-28 [&_h3]:scroll-mt-28 [&_textarea]:w-full [&>p:first-of-type]:text-base [&>p:first-of-type]:leading-8 [&>p:first-of-type]:font-medium [&>p:first-of-type]:text-ink"
+									>
+										{
+											fallbackLocale && fallbackHref && (
+												<div class="rounded-md border border-border bg-yellow-50 p-4 text-sm text-subtle dark:bg-yellow-950" role="alert">
+													<p
+														class="not-prose"
+														set:html={
+															'⚠️ ' +
+															t(lang, 'blog.fallback.notice', {
+																requestedLang: t(lang, `lang.${lang}`),
+																availableLang: t(lang, `lang.${fallbackLocale}`),
+																linkStart: `<a href="${fallbackHref}" class="font-medium text-primary no-underline hover:text-primary-hover">`,
+																linkEnd: '</a>',
+															})
+														}
+													/>
+												</div>
+											)
+										}
+										{
+											originalLocale && originalHref && (
+												<div class="rounded-md border border-border bg-yellow-50 p-4 text-sm text-subtle dark:bg-yellow-950" role="alert">
+													<p
+														class="not-prose"
+													set:html={
+														'⚠️ ' +
+														t(lang, 'blog.translation.notice', {
+															lang: t(lang, `lang.${originalLocale}`),
+															linkStart: `<a href="${originalHref}" class="font-medium text-primary no-underline hover:text-primary-hover">`,
+															linkEnd: '</a>',
+														})
+													}
+												/>
+											</div>
+										)
+									}
+									<slot />
+								</div>
+								<GiscusComments lang={lang} />
+							</div>
 						</div>
 					</div>
-				</div>
-			</article>
+				</article>
 		</main>
 		<Footer lang={lang} />
 	</body>
