@@ -1,0 +1,5 @@
+title: ethereum.rb
+description: 2016年开发的 Ruby Ethereum 库，用于构建、签名和广播交易，并与智能合约交互。
+source: github
+url: https://github.com/EthWorks/ethereum.rb
+order: 6

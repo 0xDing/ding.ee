@@ -1,0 +1,41 @@
+---
+import { ChevronRight } from 'lucide-react'
+import type { Locale } from '../i18n/config'
+import { localePath, t } from '../i18n/utils'
+
+interface BreadcrumbItem {
+	label: string
+	href?: string
+}
+
+interface Props {
+	lang: Locale
+	items: BreadcrumbItem[]
+}
+
+const { lang, items } = Astro.props
+
+const allItems: BreadcrumbItem[] = [{ label: t(lang, 'breadcrumb.home'), href: localePath(lang) }, ...items]
+---
+
+<nav aria-label="Breadcrumb" class="px-4 py-3 sm:px-6">
+	<ol class="flex list-none flex-wrap items-center gap-1.5 p-0 text-sm text-muted-foreground">
+		{
+			allItems.map((item, i) => (
+				<li class="flex items-center gap-1.5">
+					{i > 0 && <ChevronRight className="size-3.5 shrink-0 text-subtle" aria-hidden="true" />}
+					{item.href && i < allItems.length - 1 ? (
+						<a
+							href={item.href}
+							class="no-underline transition hover:text-ink"
+						>
+							{item.label}
+						</a>
+					) : (
+						<span class="text-ink font-medium">{item.label}</span>
+					)}
+				</li>
+			))
+		}
+	</ol>
+</nav>

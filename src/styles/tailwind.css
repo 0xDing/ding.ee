@@ -1,0 +1,181 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@custom-variant dark (&:where(.dark, .dark *));
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--text-xs: 0.75rem;
+	--text-xs--line-height: 1rem;
+	--text-sm: 0.875rem;
+	--text-sm--line-height: 1.25rem;
+	--text-base: 1rem;
+	--text-base--line-height: 1.5rem;
+	--text-lg: 1.125rem;
+	--text-lg--line-height: 1.75rem;
+	--text-xl: 1.25rem;
+	--text-xl--line-height: 1.75rem;
+	--text-2xl: 1.625rem;
+	--text-2xl--line-height: 2rem;
+	--text-3xl: 1.875rem;
+	--text-3xl--line-height: 2.25rem;
+	--text-4xl: 2.125rem;
+	--text-4xl--line-height: 2.5rem;
+	--text-5xl: 2.625rem;
+	--text-5xl--line-height: 3rem;
+	--text-6xl: 3rem;
+	--text-6xl--line-height: 3.25rem;
+	--text-7xl: 3.5rem;
+	--text-7xl--line-height: 3.75rem;
+	--text-8xl: 4rem;
+	--text-8xl--line-height: 4.25rem;
+	--text-9xl: 4.5rem;
+	--text-9xl--line-height: 4.75rem;
+	--shadow-xs: 0 2px 8px 0 rgba(22, 22, 22, 0.04);
+	--shadow-sm: 0 3px 12px 0 rgba(22, 22, 22, 0.045);
+	--shadow-md: 0 4px 16px 0 rgba(22, 22, 22, 0.05);
+	--shadow-lg: 0 6px 24px 0 rgba(22, 22, 22, 0.06);
+	--shadow-xl: 0 8px 32px 0 rgba(22, 22, 22, 0.07);
+	--shadow-2xl: 0 10px 40px 0 rgba(22, 22, 22, 0.08);
+	--shadow-elevated:
+		0 2px 6px rgba(96, 115, 159, 0.2), 0 8px 24px rgba(96, 115, 159, 0.22), 0 16px 32px rgba(96, 115, 159, 0.16);
+	--shadow-frosted:
+		0 10px 40px rgba(15, 18, 25, 0.08), 0 1px 0 rgba(255, 255, 255, 0.78) inset,
+		0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary-hover: var(--primary-hover);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-fg-primary: var(--fg-primary);
+	--color-fg-secondary: var(--fg-secondary);
+	--color-fg-tertiary: var(--fg-tertiary);
+	--color-fg-quaternary: var(--fg-quaternary);
+	--color-page: var(--background);
+	--color-surface: var(--card);
+	--color-ink: var(--fg-primary);
+	--color-copy: var(--fg-secondary);
+	--color-subtle: var(--fg-tertiary);
+	--color-neutral: var(--fg-tertiary);
+	--color-line: var(--border);
+	--color-soft: var(--accent);
+	--font-sans: var(--font-agentbull-sans);
+	--font-mono: var(--font-agentbull-mono);
+}
+
+@layer base {
+	@font-face {
+		font-family: "AgentBull Sans";
+		src: url("/fonts/AgentBullSansGB.variable.woff2") format("woff2");
+		font-weight: 100 800;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: "AgentBull Mono";
+		src: url("/fonts/AgentBullMono.variable.woff2") format("woff2");
+		font-weight: 100 800;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	:root {
+		--background: #f7f7f9;
+		--foreground: #0f1219;
+		--card: #ffffff;
+		--card-foreground: #0f1219;
+		--popover: #ffffff;
+		--popover-foreground: #0f1219;
+		--primary: #206bea;
+		--primary-foreground: #ffffff;
+		--primary-hover: #1a58c4;
+		--secondary: #eef4ff;
+		--secondary-foreground: #0f1219;
+		--muted: #f1f4f8;
+		--muted-foreground: #60739f;
+		--accent: #eff4ff;
+		--accent-foreground: #0f1219;
+		--border: #e5e9f0;
+		--input: #e5e9f0;
+		--ring: rgba(32, 107, 234, 0.18);
+		--destructive: #d94f3d;
+		--destructive-foreground: #ffffff;
+		--fg-primary: #0f1219;
+		--fg-secondary: #222939;
+		--fg-tertiary: #66758f;
+		--fg-quaternary: #7b8698;
+		--font-agentbull-sans:
+			"AgentBull Sans", "IBM Plex Sans", "PingFang SC", system-ui, "SF Pro", "Helvetica Neue", "Segoe UI",
+			"Source Han Sans SC", "Microsoft YaHei", "MiSans L3", sans-serif;
+		--font-agentbull-mono:
+			"AgentBull Mono", "IBM Plex Mono", ui-monospace, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+	}
+
+	.dark {
+		color-scheme: dark;
+		--background: #161616;
+		--foreground: #e4e8ef;
+		--card: #232323;
+		--card-foreground: #e4e8ef;
+		--popover: #181d27;
+		--popover-foreground: #e4e8ef;
+		--primary: #bdbdbd;
+		--primary-foreground: #0f1219;
+		--primary-hover: #78b0ff;
+		--secondary: #1a2236;
+		--secondary-foreground: #e4e8ef;
+		--muted: #1e2533;
+		--muted-foreground: #cdcdcd;
+		--accent: #1a2236;
+		--accent-foreground: #e4e8ef;
+		--border: #2a3346;
+		--input: #2a3346;
+		--ring: rgba(90, 156, 255, 0.24);
+		--destructive: #ef6461;
+		--destructive-foreground: #0f1219;
+		--fg-primary: #e4e8ef;
+		--fg-secondary: #c4cbda;
+		--fg-tertiary: #cdcdcd;
+		--fg-quaternary: #6b7a96;
+	}
+}
+
+/*
+ Custom global styles
+*/
+
+.prose blockquote p::before,
+.prose blockquote p::after {
+	content: none;
+}
+
+:root {
+	text-autospace: normal;
+}
+
+html {
+	tab-size: 4;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,24 @@
+---
+import Logo from '../../assets/logo.svg'
+
+interface Props {
+	href: string
+	label: string
+	class?: string
+	logoClass?: string
+	textClass?: string
+}
+
+const { href, label, class: className = '', logoClass = 'h-6 w-auto shrink-0', textClass = '' } = Astro.props
+---
+
+<a
+	href={href}
+	class:list={['flex items-center gap-3 text-ink no-underline transition hover:opacity-75', className]}
+	aria-label={label}
+>
+	<Logo class={logoClass} aria-hidden="true" />
+	<span class:list={['text-lg font-medium text-ink', textClass]}>
+		丁立 <span class="font-light">|</span> Boris Ding
+	</span>
+</a>

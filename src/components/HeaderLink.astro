@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import type { Locale } from '../i18n/config'
+
+type Props = HTMLAttributes<'a'> & { lang: Locale }
+
+const { href, class: className, lang, ...props } = Astro.props
+const pathname = Astro.url.pathname
+
+// Strip trailing slashes for comparison
+const normHref = href?.toString().replace(/\/+$/, '') || ''
+const normPath = pathname.replace(/\/+$/, '')
+const langPrefix = `/${lang}`
+
+const isActive = normHref === normPath || (normHref === langPrefix && normPath === langPrefix)
+---
+
+<a
+	href={href}
+	class:list={[
+		'inline-block no-underline',
+		className,
+		isActive && 'font-bold underline underline-offset-4'
+	]}
+	{...props}
+>
+	<slot />
+</a>

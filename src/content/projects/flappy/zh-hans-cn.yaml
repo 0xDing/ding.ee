@@ -1,0 +1,5 @@
+title: Flappy
+description: 2023年开发的 Agent 开发框架，支持函数调用、代码沙盒与多语言 SDK，用于构建生产级 LLM Agent。
+source: github
+url: https://github.com/pleisto/flappy
+order: 4

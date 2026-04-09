@@ -1,0 +1,5 @@
+title: yuren-baichuan-7b
+description: 世界初のオープンソース中国語ビジョン言語モデル。70億パラメータで、Baichuan-7bをベースに開発されています。
+source: huggingface
+url: https://huggingface.co/0xDing/yuren-baichuan-7b
+order: 3

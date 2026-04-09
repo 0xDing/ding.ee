@@ -1,0 +1,5 @@
+title: nanoGPT-bitnet
+description: 2024年に開発したnanoGPTフォーク。従来のLinear層をBitNetの二値ニューラルネットワーク構成に置き換え、計算量とメモリ消費の削減を狙う。
+source: github
+url: https://github.com/0xDing/nanoGPT-bitnet
+order: 8

@@ -1,0 +1,39 @@
+---
+/**
+ * Client-side language detection and redirect.
+ * Used on non-prefixed URLs to redirect to /{lang}/...
+ */
+interface Props {
+	/** The path after the lang prefix, e.g. "blog" or "blog/first-post" */
+	path?: string
+}
+const { path = '' } = Astro.props
+const targetPath = path ? `/${path}/` : '/'
+---
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script is:inline define:vars={{ targetPath }}>
+			;(function () {
+				var map = { en: 'en-US', zh: 'zh-Hans-CN', ja: 'ja-JP' }
+				var langs = (navigator.languages || [navigator.language || 'en']).map(function (l) {
+					return l.split('-')[0].toLowerCase()
+				})
+				var lang = 'en-US'
+				for (var i = 0; i < langs.length; i++) {
+					if (map[langs[i]]) {
+						lang = map[langs[i]]
+						break
+					}
+				}
+				window.location.replace('/' + lang + targetPath)
+			})()
+		</script>
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=/en-US{targetPath}" />
+		</noscript>
+	</head>
+	<body></body>
+</html>

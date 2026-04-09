@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+import { ArrowUpRight } from 'lucide-react'
+import type { Locale } from '../i18n/config'
+import { t } from '../i18n/utils'
+
+interface Props {
+	project: CollectionEntry<'projects'>
+	lang: Locale
+}
+
+const { project, lang } = Astro.props
+const { title, description, source, url, icon } = project.data
+
+const sourceConfig = {
+	github: { label: t(lang, 'projects.filter.github'), color: 'bg-neutral-500' },
+	appstore: { label: t(lang, 'projects.filter.appstore'), color: 'bg-blue-500' },
+	huggingface: { label: t(lang, 'projects.filter.huggingface'), color: 'bg-amber-500' },
+	business: { label: t(lang, 'projects.filter.business'), color: 'bg-emerald-500' }
+} as const
+
+const { label: sourceLabel, color: dotColor } = sourceConfig[source]
+const isMonoTitle = source === 'github' || source === 'huggingface'
+---
+
+<a
+	href={url}
+	target="_blank"
+	rel="noopener noreferrer"
+	class="group block h-full rounded-[10px] border border-border bg-card p-5 shadow-lg no-underline transition hover:-translate-y-0.5 hover:shadow-xl sm:p-6"
+>
+	<div class="flex items-center gap-2 text-sm text-subtle">
+		<span class:list={['inline-block size-2 rounded-full', dotColor]}></span>
+		<span>{sourceLabel}</span>
+	</div>
+
+	<div class:list={['mt-4', { 'flex items-start gap-4': icon }]}>
+		{icon && (
+			<Image
+				src={icon}
+				alt=""
+				width={48}
+				height={48}
+				class="size-12 shrink-0 rounded-xl"
+			/>
+		)}
+		<div class="min-w-0">
+			<h3 class:list={[
+				'm-0 text-lg font-semibold text-ink transition group-hover:text-primary sm:text-xl',
+				{ 'font-mono': isMonoTitle }
+			]}>
+				{title}
+			</h3>
+			<p class="m-0 mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+				{description}
+			</p>
+		</div>
+	</div>
+
+	<div class="mt-5 flex items-center gap-1 text-sm font-medium text-subtle transition group-hover:text-primary">
+		<span>{sourceLabel}</span>
+		<ArrowUpRight className="size-3.5" />
+	</div>
+</a>

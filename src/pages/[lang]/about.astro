@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content'
+import AboutHeroImage from '../../assets/pages/about-cover.webp'
+import { getFallbackChain, isValidLocale, LOCALES, type Locale } from '../../i18n/config'
+import AboutLayout from '../../layouts/About.astro'
+
+export function getStaticPaths() {
+	return LOCALES.map(lang => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params
+if (!isValidLocale(lang)) return Astro.redirect('/')
+const locale = lang as Locale
+
+const allAbout = await getCollection('about')
+const chain = getFallbackChain(locale)
+const entry = chain.map(l => allAbout.find(e => e.id === l.toLowerCase())).find(Boolean)
+
+const { Content } = entry ? await render(entry) : { Content: null }
+---
+
+<AboutLayout lang={locale} heroImage={AboutHeroImage}>
+	{Content && <Content />}
+</AboutLayout>

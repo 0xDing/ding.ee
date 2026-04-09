@@ -1,0 +1,5 @@
+title: yuren-baichuan-7b
+description: 首个支持中文的开源多模态大语言模型，基于Baichuan-7b叠加了CLIP视觉编码器。
+source: huggingface
+url: https://huggingface.co/0xDing/yuren-baichuan-7b
+order: 3

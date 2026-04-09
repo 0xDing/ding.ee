@@ -1,0 +1,59 @@
+---
+import BaseHead from '../../../components/BaseHead.astro'
+import BlogFeed from '../../../components/BlogFeed.astro'
+import Footer from '../../../components/Footer.astro'
+import Header from '../../../components/Header.astro'
+import { getSiteTitle } from '../../../consts'
+import { BCP47, isValidLocale, LOCALES, type Locale } from '../../../i18n/config'
+import { t } from '../../../i18n/utils'
+import { getLocalizedPostsByTag, getLocalizedTagGroups } from '../../../lib/content'
+
+export async function getStaticPaths() {
+	const paths = await Promise.all(
+		LOCALES.map(async lang => {
+			const tags = await getLocalizedTagGroups(lang)
+			return tags.map(tag => ({
+				params: { lang, tag: tag.slug },
+				props: { lang, tag: tag.slug }
+			}))
+		})
+	)
+
+	return paths.flat()
+}
+
+const { lang, tag } = Astro.params
+if (!isValidLocale(lang)) return Astro.redirect('/')
+const locale = lang as Locale
+
+const [tags, activeTag] = await Promise.all([getLocalizedTagGroups(locale), getLocalizedPostsByTag(locale, tag!)])
+if (!activeTag) return Astro.redirect(`/${locale}/`)
+
+const pageTitle = `${activeTag.label} | ${t(locale, 'blog.index.title')} | ${getSiteTitle(locale)}`
+const pageDescription = `${t(locale, 'blog.index.description')} ${activeTag.label}.`
+---
+
+<!doctype html>
+<html lang={BCP47[locale]}>
+	<head>
+		<BaseHead
+			title={pageTitle}
+			description={pageDescription}
+			lang={locale}
+			path={`tags/${activeTag.slug}`}
+		/>
+	</head>
+	<body class="m-0 bg-page font-sans text-base leading-7 text-copy antialiased">
+		<Header lang={locale} />
+		<main class="mx-auto w-full max-w-300 px-4 sm:px-6">
+			<BlogFeed
+				posts={activeTag.posts}
+				tags={tags}
+				lang={locale}
+				activeTagSlug={activeTag.slug}
+				pageTitle={pageTitle}
+			/>
+		</main>
+		<Footer lang={locale} />
+	</body>
+</html>

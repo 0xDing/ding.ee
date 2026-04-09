@@ -1,0 +1,84 @@
+---
+title: 'Reimagining OS in the Era of Web 3.0'
+description: 'The next OS is not an OS. It is a compound document and web-based unified storage as a whole, which can be called Internet OS.'
+pubDate: '2022-7-7'
+tags:
+    - Internet OS
+heroImage: "cover.svg"
+original: true
+---
+
+WinFS: A Self-Disruptive Innovation That Was Too Early
+------------------------------------------------------
+
+[In a 2013 Reddit AMA](https://www.reddit.com/r/IAmA/comments/18bhme/im_bill_gates_cochair_of_the_bill_melinda_gates/), Bill Gates referred to the WinFS(Windows Future Storage) as his greatest disappointment with Microsoft. WinFS was touted as one of the key components in Window Longhorn (was the pre-release codename for Windows Vista)_._ Microsoft had expected this OS update to be a major game-changer in the desktop computing sector.
+
+### Problem With Traditional File System
+
+A regular file system can store data as byte streams packed to a file. How bytes are packed into a file is highly application-specific. And so, data sharing within a single file requires the applications to have a common parsing logic. This storage method can be inconvenient when we use thousands of applications developed by different vendors for different purposes.
+
+In the case of using file manager applications like Windows Explorer, you can only find files by using metadata like file name, extension name, and file creation time. You can't find files with just the file content. Some may say solutions like Windows Search or Spotlight can, but they only work on the premise that all supported file formats have an integrated parsing logic. Proprietary file formats further hinder data sharing between applications with data silo aggregations.
+
+Another typical problem with regular file systems is that it is not intuitive to organize data through a tree directory structure. When storing your meeting notes, for example, you have to decide where to store them. Should it be stored under the date, the location, or the organizer?
+
+Even though most file hosting services like Dropbox already support file synchronization, it is still based on a regular file system with the drawbacks above. When in a synchronization conflict, these services can only overwrite a whole file.
+
+### Aspiring Solutions Proposed by WinFS
+
+WinFS is an abstraction layer built on top of the NTFS file system and was designed to solve the above problems. It is essentially an unified storage system with file synchronization that can store any data — whether the data is structured, semi-structured, or unstructured. In a sense, WinFS is a mix of Dropbox, Zapier, and relational databases(RDS).
+
+Since applications can store structured data in WinFS, it is easy to implement content-based search. Even if the file format is not being recognized by a file manager, the search can still be carried out with the key and value pairs of the structured data. With that being the case, data sharing is much easier between applications. The definition of a schema for the stored data can, for example, allows instant messaging apps to share contact buddy lists with clients via email.
+
+Like an RDS, WinFS enables data to create one-to-one, one-to-many, and many-to-many relationships. This makes it possible to locate any spreadsheets mentioned in a particular meeting note. A workflow automation can even be set up with real-time triggers to send an email to those mentioned in a meeting note.
+
+Interestingly, WinFS is also designed to be a decentralized store. Its data can be stored and synchronized anywhere. It can be set up locally, in the cloud, or on self-hosted servers. Microsoft sees computers as personal data centers. They hope this will counteract with Internet giants like Google and Facebook to avoid over-centralizing data storage.
+
+Unlike decentralization in the blockchain, decentralization in the WinFS context is more _similar to_ like the early Internet protocols (i.e. SMTP). The data are still stored in a centralized location, but you have the power to choose which one. Whether you store it in the cloud service or your local device doesn't affect the functionality of WinFS. And, you can move the data to another location at any time.
+
+### What Happened With WinFS
+
+Unfortunately, after many delays in Longhorn, Microsoft decided to shelve the WinFS feature to ensure the timely release of Windows Vista. This is not the first time that Microsoft’s blueprint to the future came to a dead end. Microsoft already claimed on [the New York Times on November 12, 1990](https://www.nytimes.com/1990/11/12/business/the-media-business-microsoft-s-bold-new-game-plan.html), "In the future, computer use will forget about their applications and think about their document instead...In such designs, programs will be packaged in small modules that can be put together in many arrangements, like building blocks". Other companies also had similar attempts **\-** For example, Apple as well had planned to launch [OpenDoc](https://gregmaletic.wordpress.com/2006/11/12/opendoc/) in the early ‘90s.
+
+Most of these attempts are designed to steer desktop computing from being based on native applications and unstructured data to being based on compound documents and structured data. However, these projects are self-disruptive innovations that all failed due to native applications were still dominant at the time.
+
+> "The idea of WinFS was ahead of its time, which will re-emerge." By: Bill Gates
+
+Reawakening of the Compound Documents
+-------------------------------------
+
+As a relatively classical concept, the term "compound document" has been defined differently at different times in history. Simply put, a compound document is a canvas that can contain any content. You can include not only rich text but also interactive widgets, forms, or any other types of documents.
+
+In a sense, the relationship between a compound document and a unified storage like WinFS is a bit like the relationship between the shell and the kernel of an operating system. The kernel provides the foundational capabilities to the platform, while the shell enables humans to interact with the kernel to use these capabilities.
+
+Interestingly, a web page is actually a typical compound document. And so in the era of SaaS eating the world, it has become possible to re-drive the next generation of desktop computing on the Web. It takes up a lot of time to visit web pages. DesktopOS are being immensely impacted by browsers that even professional applications like Figma and VSCode are switching to being browser-based.
+
+### Interoperability Issues
+
+However, large enterprises (>1000 employees) on average use up to 177 different SaaS at a time. In addition to that, the amount of data silos within those SaaS makes interoperability even more strenuous. Process automation tools such as Zapier and Power Automate may seem like they were created for this purpose. But it’s are more like ferry boats traveling between data silos rather than a real and lasting bridge.
+
+New technologies like PWA, WebAssembly, WebGL, and others allow the Web to do much of what native applications can do. The popularity of serverless has also driven the developers to build a web application more like a compound document.
+
+### Aspiring Solutions
+
+It is an ongoing crisis that the speed of software development is not meeting the rate of user demand.This situation created an increased interest in launching products for citizen developers and also populated buzzwords like “low-code” and “all-in-one”. And in compound document-centric desktop computing, end-users are free to create compound documents. They can create their own applications like building blocks by breaking down the boundaries between software and document.
+
+With the rise of web3, people expect the Web not only to be readable and writable but also to be owned. A web version of "WinFS" would help to achieve this goal. Sir. Tim Berners-Lee, the inventor of the Web, is working on a new project called [Solid](https://solidproject.org/) to accomplish this. IPLD(InterPlanetary Linked Data), a sub-project of IPFS, also plans to achieve the same goal by solving the shortcomings of IPFS in structured data. On the other hand, as Ruben Verborgh mentions in his article "[Decentralizing the through incentivized collaboration](https://ruben.verborgh.org/articles/incentivized-collaboration/)," the programmable trust of web3 will also helps in building a sustainable decentralized unified storage.
+
+Internet OS: The New Desktop Computing
+--------------------------------------
+
+Just as the user cannot use the operating system kernel without the shell, the compound document and web-based unified storage should be considered as a whole.
+
+An operating system is system software that provides common capabilities for applications and ensures interoperability between different applications. For example, the operating system provides a clipboard and file system to enable applications to share data. Thus the operating system, in the broadest sense, is not necessarily directly hardware-related.
+
+Since compound documents and web-based unified storage as a whole can provide interoperability and common capabilities for the applications built on top of it, it can be called Internet OS.
+
+### The Platform Shift Is Ready
+
+Whether intentional or not, several all-in-one productivity tools, including Notion, Coda, and Airtable, have become the Internet OS's predecessors. The block editor can be practically equated with the compound document editor.
+
+End users of these all-in-one workspaces will eventually feel like it’s a BaaS(Backend-as-a-Service) that lets them create Dapp-like applications to enrich the experience. Recent products like the [Microsoft Loop](https://www.microsoft.com/en-us/microsoft-365/blog/2021/11/02/microsoft-office-transforming-for-the-hybrid-world/?culture=en-us&country=US), [AnyType](https://anytype.io/), [Hash.ai](http://hash.ai/), and [MashCard](https://github.com/mashcard/mashcard) are like the shell that wraps around the kernel of unified storage. They can store an unprecedented variety of data, such as structured database blocks, semi-structured rich text blocks, and unstructured attachment blocks.
+
+Your next desktop operating system is not an operating system. Tim's original vision for the web would be realised, namely that it would act as a medium for the secure, decentralised exchange of public and private data. And the Internet OS, built on the Web, will create the new Memex.
+
+AboutActivityShare

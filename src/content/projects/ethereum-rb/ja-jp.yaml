@@ -1,0 +1,5 @@
+title: ethereum.rb
+description: 2016年に開発したRuby向けEthereumライブラリ。トランザクションの生成・署名・送信やスマートコントラクト操作に対応する。
+source: github
+url: https://github.com/EthWorks/ethereum.rb
+order: 6

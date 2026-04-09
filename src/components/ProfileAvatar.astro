@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets'
+import avatarImage from '../assets/avatar.jpg'
+
+type AvatarSize = 32 | 40 | 126
+
+interface Props {
+	alt?: string
+	class?: string
+	imageClass?: string
+	size?: AvatarSize
+}
+
+const { alt = 'Boris Ding avatar', class: className, imageClass, size = 40 } = Astro.props
+
+const avatarStyles: Record<AvatarSize, { radiusClass: string; remSize: string }> = {
+	32: {
+		radiusClass: 'rounded-md',
+		remSize: '2rem'
+	},
+	40: {
+		radiusClass: 'rounded-md',
+		remSize: '2.5rem'
+	},
+	126: {
+		radiusClass: 'rounded-xl',
+		remSize: '7.875rem'
+	}
+}
+---
+
+<div
+	class:list={[
+		'shrink-0 overflow-hidden  bg-card shadow-lg ring-1 ring-black/5',
+		avatarStyles[size].radiusClass,
+		className
+	]}
+	style={`width: ${avatarStyles[size].remSize}; height: ${avatarStyles[size].remSize};`}
+>
+	<Image
+		src={avatarImage}
+		alt={alt}
+		width={size}
+		height={size}
+		sizes={`${size}px`}
+		class:list={['block size-full object-cover', imageClass]}
+	/>
+</div>

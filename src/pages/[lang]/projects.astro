@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets'
+import ProjectsHeroImage from '../../assets/pages/projects-cover.svg'
+import BaseHead from '../../components/BaseHead.astro'
+import Breadcrumb from '../../components/Breadcrumb.astro'
+import Footer from '../../components/Footer.astro'
+import Header from '../../components/Header.astro'
+import ProjectCard from '../../components/ProjectCard.astro'
+import { BCP47, isValidLocale, LOCALES, type Locale } from '../../i18n/config'
+import { t } from '../../i18n/utils'
+import { getLocalizedProjects } from '../../lib/content'
+
+export function getStaticPaths() {
+	return LOCALES.map(lang => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params
+if (!isValidLocale(lang)) return Astro.redirect('/')
+const locale = lang as Locale
+
+const projects = await getLocalizedProjects(locale)
+const sources = ['all', 'github', 'appstore', 'huggingface', 'business'] as const
+---
+
+<html lang={BCP47[lang]}>
+	<head>
+		<BaseHead
+			title={`${t(lang, 'projects.title')} - ${t(lang, 'site.title')}`}
+			description={t(lang, 'projects.description')}
+			lang={lang}
+			path="projects"
+		/>
+	</head>
+
+	<body class="m-0 bg-page font-sans text-base leading-7 text-copy antialiased">
+		<Header lang={lang} />
+		<main class="mx-auto w-full max-w-300">
+			<Breadcrumb lang={lang} items={[{ label: t(lang, 'nav.projects') }]} />
+
+			<div class="px-4 sm:px-6">
+				<div class="relative overflow-hidden rounded-2xl shadow-xl">
+					<Image
+						src={ProjectsHeroImage}
+						alt=""
+						width={1920}
+						height={1080}
+						class="block aspect-2/1 w-full object-cover sm:aspect-5/2"
+					/>
+					<div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+					<div class="absolute inset-x-0 bottom-0 p-6 sm:p-10">
+						<h1 class="m-0 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
+							{t(lang, 'projects.title')}
+						</h1>
+						<p class="m-0 mt-3 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
+							{t(lang, 'projects.description')}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="px-4 pt-8 sm:px-6 sm:pt-10">
+				<nav aria-label="Filter projects by source" class="flex flex-wrap gap-2">
+					{sources.map(source => (
+						<button
+							type="button"
+							data-filter={source}
+							class:list={[
+								'projects-filter-btn inline-flex cursor-pointer items-center rounded-full border px-4 py-2 text-sm font-semibold leading-none no-underline transition',
+								source === 'all'
+									? 'border-primary/20 bg-primary/10 text-primary'
+									: 'border-border bg-card text-copy shadow-sm hover:text-ink'
+							]}
+						>
+							{t(lang, `projects.filter.${source}`)}
+						</button>
+					))}
+				</nav>
+			</div>
+
+			<div class="px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8">
+				<ul class="grid list-none gap-5 p-0 sm:grid-cols-2 xl:grid-cols-3">
+					{projects.map(project => (
+						<li data-source={project.data.source} class="project-item">
+							<ProjectCard project={project} lang={lang} />
+						</li>
+					))}
+				</ul>
+			</div>
+		</main>
+		<Footer lang={lang} />
+
+		<script>
+			function initProjectFilters() {
+				const buttons = document.querySelectorAll<HTMLButtonElement>('.projects-filter-btn')
+				const items = document.querySelectorAll<HTMLElement>('.project-item')
+
+				const activeClasses = ['border-primary/20', 'bg-primary/10', 'text-primary']
+				const inactiveClasses = ['border-border', 'bg-card', 'text-copy', 'shadow-sm', 'hover:text-ink']
+
+				function setFilter(source: string) {
+					buttons.forEach(btn => {
+						const isActive = btn.dataset.filter === source
+						btn.classList.remove(...activeClasses, ...inactiveClasses)
+						btn.classList.add(...(isActive ? activeClasses : inactiveClasses))
+					})
+
+					items.forEach(item => {
+						const match = source === 'all' || item.dataset.source === source
+						item.style.display = match ? '' : 'none'
+					})
+				}
+
+				buttons.forEach(btn => {
+					btn.addEventListener('click', () => setFilter(btn.dataset.filter!))
+				})
+			}
+
+			initProjectFilters()
+			document.addEventListener('astro:after-swap', initProjectFilters)
+		</script>
+	</body>
+</html>

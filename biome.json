@@ -1,0 +1,84 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
+	"root": true,
+	"files": {
+		"maxSize": 2097152,
+		"includes": ["src/**", "*.mjs", "*.ts", "*.json", "!.claude/**/*"]
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 120,
+		"lineEnding": "lf"
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"noNonNullAssertion": "off",
+				"useConst": "error",
+				"useTemplate": "error"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noConsole": {
+					"options": {
+						"allow": ["warn", "error"]
+					},
+					"level": "error"
+				}
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off",
+				"useSemanticElements": "off",
+				"noSvgWithoutTitle": "off"
+			},
+			"complexity": {
+				"noForEach": "off"
+			}
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "asNeeded",
+			"trailingCommas": "none",
+			"bracketSpacing": true,
+			"bracketSameLine": true,
+			"arrowParentheses": "asNeeded"
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnusedImports": "off",
+						"noUnusedVariables": "off"
+					}
+				}
+			}
+		}
+	],
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	}
+}

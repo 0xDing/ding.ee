@@ -1,0 +1,29 @@
+---
+import type { Locale } from '../i18n/config'
+import { localePath } from '../i18n/utils'
+import { getTagSlug } from '../lib/content'
+
+interface Props {
+	tags: string[]
+	lang: Locale
+	class?: string
+}
+
+const { tags, lang, class: className = '' } = Astro.props
+---
+
+<ul class:list={['m-0 flex list-none flex-wrap items-center gap-2 p-0', className]}>
+	{
+		tags.map(tag => (
+			<li>
+				<a
+					href={localePath(lang, `tags/${getTagSlug(tag)}`)}
+					class="inline-flex items-center gap-2 text-sm leading-none font-semibold text-primary no-underline transition hover:text-primary-hover"
+				>
+					<span class="inline-block size-1.5 rounded-full bg-primary/40"></span>
+					{tag}
+				</a>
+			</li>
+		))
+	}
+</ul>

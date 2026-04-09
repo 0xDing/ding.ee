@@ -1,0 +1,39 @@
+---
+interface NavItem {
+	href: string
+	label: string
+	active: boolean
+}
+
+interface Props {
+	items: NavItem[]
+	variant?: 'desktop' | 'mobile'
+}
+
+const { items, variant = 'desktop' } = Astro.props
+
+const linkClass = (active: boolean) =>
+	variant === 'desktop'
+		? [
+				'inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold no-underline transition',
+				active ? 'text-primary' : 'text-ink hover:text-primary'
+			]
+		: [
+				'rounded-xl px-4 py-3 text-base font-medium no-underline transition',
+				active ? 'bg-accent text-primary' : 'text-neutral hover:bg-accent hover:text-ink'
+			]
+---
+
+<Fragment>
+	{
+		items.map(item => (
+			<a
+				href={item.href}
+				class:list={linkClass(item.active)}
+				aria-current={item.active ? 'page' : undefined}
+			>
+				{variant === 'desktop' ? <span>{item.label}</span> : item.label}
+			</a>
+		))
+	}
+</Fragment>

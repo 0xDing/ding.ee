@@ -1,0 +1,95 @@
+---
+import HeroSocialLinks, { HeroSocialLink } from '@/common/components/HeroSocialLinks'
+import DinqIcon from '../assets/social/dinq.svg'
+import GitHubIcon from '../assets/social/github.svg'
+import HuggingFaceIcon from '../assets/social/huggingface.svg'
+import JikeIcon from '../assets/social/jike.svg'
+import JikeDarkIcon from '../assets/social/jike-dark.svg'
+import TwitterIcon from '../assets/social/twitter.svg'
+import type { Locale } from '../i18n/config'
+import { t } from '../i18n/utils'
+import ProfileAvatar from './ProfileAvatar.astro'
+
+interface Props {
+	lang: Locale
+}
+
+const { lang } = Astro.props
+
+const socialLinks = [
+	{
+		href: 'https://twitter.com/0xding',
+		icon: TwitterIcon,
+		label: t(lang, 'social.x'),
+		iconClass: 'scale-[0.7]'
+	},
+	{
+		href: 'https://github.com/0xDing',
+		icon: GitHubIcon,
+		label: t(lang, 'social.github'),
+		iconClass: 'scale-[0.86]'
+	},
+	{
+		href: 'https://huggingface.co/0xDing',
+		icon: HuggingFaceIcon,
+		label: t(lang, 'social.huggingface'),
+		iconClass: 'scale-[0.9]'
+	},
+	{
+		href: 'https://jike.city/0xding',
+		icon: JikeIcon,
+		iconDark: JikeDarkIcon,
+		label: t(lang, 'social.jike'),
+		iconClass: 'scale-[0.94]'
+	},
+	{
+		href: 'https://dinq.me/borisding',
+		icon: DinqIcon,
+		label: t(lang, 'social.dinq'),
+		iconClass: 'scale-[0.8]'
+	}
+]
+---
+
+<section class="pt-4 pb-8 text-center sm:pt-6 sm:pb-10">
+	<div class="mx-auto max-w-2xl">
+		<h1 class="mx-auto text-balance text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl">
+			Sharing thoughts on design, code, and the poetic life <br /> as an
+			<mark class="relative z-0 inline-block align-baseline bg-transparent px-1 leading-none text-ink after:absolute after:inset-x-0 after:top-1/2 after:-z-10 after:h-[0.95em] after:-translate-y-1/2 after:rounded-lg after:bg-blue-100 dark:after:bg-gray-800 after:content-['']">
+				entropy slayer
+			</mark>
+		</h1>
+
+		<div class="mx-auto mt-5 flex w-fit flex-col items-center gap-4 sm:mt-6 sm:flex-row sm:items-center sm:gap-3">
+			<div class="flex items-center gap-3">
+				<ProfileAvatar size={40} alt={`${t(lang, 'hero.name')} avatar`} />
+
+				<div class="text-left">
+					<p class="m-0 text-sm leading-none font-semibold text-ink">
+						{t(lang, 'hero.name')}
+					</p>
+					<p class="mt-2 text-sm leading-none">
+						{t(lang, 'hero.role')}
+					</p>
+				</div>
+			</div>
+
+			<div class="hidden h-6 border-gray-400 w-[1.5px] rounded-full bg-border sm:block"></div>
+			<HeroSocialLinks client:load>
+				{
+					socialLinks.map(({ href, icon, iconClass, iconDark, label }) => {
+						const Icon = icon
+						const DarkIcon = iconDark
+
+						return (
+							<HeroSocialLink href={href} label={label} iconClassName={iconClass}>
+								<Icon class={DarkIcon ? 'size-full dark:hidden' : 'size-full'} aria-hidden="true" />
+								{DarkIcon && <DarkIcon class="hidden size-full dark:block" aria-hidden="true" />}
+							</HeroSocialLink>
+						)
+					})
+				}
+			</HeroSocialLinks>
+		</div>
+	</div>
+</section>

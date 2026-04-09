@@ -1,0 +1,5 @@
+title: nanoGPT-bitnet
+description: A 2024 fork of nanoGPT that replaces standard Linear layers with BitNet's binary neural network architecture to reduce compute and memory costs.
+source: github
+url: https://github.com/0xDing/nanoGPT-bitnet
+order: 8

@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+import type { Locale } from '../i18n/config'
+import { localePath, t } from '../i18n/utils'
+import { getSlug, type LocalizedTagGroup } from '../lib/content'
+import BlogTagList from './BlogTagList.astro'
+import FormattedDate from './FormattedDate.astro'
+
+interface Props {
+	posts: CollectionEntry<'blog'>[]
+	lang: Locale
+	tags: LocalizedTagGroup[]
+	activeTagSlug?: string
+	pageTitle: string
+}
+
+const { posts, lang, tags, activeTagSlug, pageTitle } = Astro.props
+const featuredPost = posts[0]
+const remainingPosts = posts.slice(1)
+const activeTag = activeTagSlug ? tags.find(tag => tag.slug === activeTagSlug) : undefined
+---
+
+<section class="mx-auto max-w-300 pb-14 pt-6 sm:pt-10">
+	<h1 class="sr-only">{pageTitle}</h1>
+
+	{
+		activeTag && (
+			<nav aria-label={t(lang, 'blog.tags.aria')} class="mb-7 flex flex-wrap items-center gap-3 text-sm sm:mb-8">
+				<a
+					href={localePath(lang)}
+					class="inline-flex items-center rounded-full bg-card px-4 py-2 leading-none font-semibold text-copy no-underline shadow-[0_10px_28px_rgba(15,18,25,0.05)] transition hover:text-ink"
+				>
+					{t(lang, 'blog.tags.all')}
+				</a>
+				<span class="text-subtle">/</span>
+				<span class="inline-flex items-center gap-2 leading-none font-semibold text-primary">
+					<span class="inline-block size-1.5 rounded-full bg-primary/40"></span>
+					{activeTag.label}
+				</span>
+			</nav>
+		)
+	}
+
+	{
+		featuredPost ? (
+			<>
+				<article class="group overflow-hidden rounded-[10px] border border-border bg-card shadow-xl">
+					<div class:list={['min-h-full', featuredPost.data.heroImage ? 'grid md:grid-cols-7' : 'flex flex-col']}>
+						{
+							featuredPost.data.heroImage && (
+								<a
+									href={localePath(lang, `${getSlug(featuredPost.id)}`)}
+									class="block min-h-full overflow-hidden bg-muted no-underline md:col-span-4"
+								>
+									<Image
+										width={1200}
+										height={800}
+										src={featuredPost.data.heroImage}
+										alt=""
+										class="block aspect-3/2 h-full min-h-80 w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+									/>
+								</a>
+							)
+						}
+
+						<div class:list={['flex min-h-full flex-col px-7 py-7', featuredPost.data.heroImage && 'md:col-span-3']}>
+							<BlogTagList tags={featuredPost.data.tags} lang={lang} class="mb-5 sm:mb-6" />
+							<h2 class="m-0 max-w-lg text-balance text-3xl leading-tight font-semibold text-ink transition duration-200 group-hover:text-primary md:text-4xl">
+								<a href={localePath(lang, `${getSlug(featuredPost.id)}`)} class="text-inherit no-underline">
+									{featuredPost.data.title}
+								</a>
+							</h2>
+							<p class="mt-5 max-w-md text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
+								{featuredPost.data.description}
+							</p>
+							<div class="mt-auto flex items-end justify-end pt-10 text-sm text-subtle sm:pt-12 md:pt-16">
+								<p class="m-0">
+									<FormattedDate date={featuredPost.data.pubDate} lang={lang} />
+								</p>
+							</div>
+						</div>
+					</div>
+				</article>
+
+				{
+					remainingPosts.length > 0 && (
+						<ul class="mt-8 grid list-none gap-5 p-0 sm:mt-10 sm:gap-6 md:grid-cols-2 xl:mx-auto xl:max-w-6xl xl:grid-cols-3">
+							{
+								remainingPosts.map(post => (
+									<li class="group">
+										<article class="flex h-full flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-lg">
+											{
+												post.data.heroImage && (
+													<a
+														href={localePath(lang, `${getSlug(post.id)}`)}
+														class="block overflow-hidden bg-muted no-underline"
+													>
+														<div class="overflow-hidden bg-muted">
+															<Image
+																width={960}
+																height={540}
+																src={post.data.heroImage}
+																alt=""
+																class="block aspect-video w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+															/>
+														</div>
+													</a>
+												)
+											}
+
+											<div class="flex flex-1 flex-col px-5 pb-5 pt-5 ">
+												<BlogTagList tags={post.data.tags} lang={lang} class="mb-5" />
+												<h3 class="m-0 max-w-sm text-balance text-2xl leading-tight font-semibold text-ink transition duration-200 group-hover:text-primary">
+													<a href={localePath(lang, `${getSlug(post.id)}`)} class="text-inherit no-underline">
+														{post.data.title}
+													</a>
+												</h3>
+												<p class="mt-4 text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
+													{post.data.description}
+												</p>
+												<div class="mt-auto flex items-end justify-end pt-8 text-sm text-subtle">
+													<p class="m-0">
+														<FormattedDate date={post.data.pubDate} lang={lang} />
+													</p>
+												</div>
+											</div>
+										</article>
+									</li>
+								))
+							}
+						</ul>
+					)
+				}
+			</>
+		) : (
+			<div class="rounded-[10px] border border-dashed border-line bg-card px-6 py-14 text-center shadow-lg">
+				<p class="m-0 text-lg font-medium text-muted-foreground">{t(lang, 'blog.tags.empty')}</p>
+			</div>
+		)
+	}
+</section>

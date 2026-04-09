@@ -1,0 +1,5 @@
+title: Shoujen-RNN
+description: A 2017 recurrent neural network text generator that emulates the writing style of Wang Yangming's Chuanxilu.
+source: github
+url: https://github.com/0xDing/shoujen-rnn
+order: 9

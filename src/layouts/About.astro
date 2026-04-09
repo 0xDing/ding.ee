@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import BaseHead from '../components/BaseHead.astro'
+import Breadcrumb from '../components/Breadcrumb.astro'
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+import type { Locale } from '../i18n/config'
+import { BCP47 } from '../i18n/config'
+import { t } from '../i18n/utils'
+
+interface Props {
+	lang: Locale
+	heroImage?: ImageMetadata
+}
+
+const { lang, heroImage } = Astro.props
+const title = t(lang, 'about.title')
+const description = t(lang, 'about.description')
+---
+
+<html lang={BCP47[lang]}>
+	<head>
+		<BaseHead title={`${t(lang, 'nav.about')} - ${t(lang, 'site.title')}`} description={description} image={heroImage} lang={lang} path="about" />
+	</head>
+
+	<body class="m-0 bg-page font-sans text-base leading-7 text-copy antialiased">
+		<Header lang={lang} />
+		<main class="mx-auto w-full max-w-300">
+			<Breadcrumb lang={lang} items={[{ label: t(lang, 'nav.about') }]} />
+
+			<div class="px-4 pb-10 pt-4 sm:px-6 sm:pb-12 sm:pt-6">
+				<div class="mx-auto max-w-3xl text-center">
+					<h1 class="mx-auto max-w-[18ch] text-balance text-4xl leading-tight font-semibold text-ink sm:text-5xl sm:leading-tight">
+						{title}
+					</h1>
+					<p class="mx-auto mt-6 max-w-2xl text-pretty text-base leading-8 text-muted-foreground sm:text-lg">
+						{description}
+					</p>
+				</div>
+
+				{
+					heroImage && (
+						<div class="mx-auto mt-10 max-w-4xl overflow-hidden rounded-2xl border border-border bg-card shadow-xl sm:mt-12">
+							<Image
+								width={1440}
+								height={810}
+								src={heroImage}
+								alt=""
+								class="block w-full object-cover"
+							/>
+						</div>
+					)
+				}
+			</div>
+
+			<div class="px-4 pb-16 sm:px-6 sm:pb-20">
+				<div class="prose dark:prose-invert prose-zinc mx-auto max-w-3xl prose-headings:mb-3 prose-headings:font-semibold prose-headings:leading-tight prose-h2:mt-14 prose-h2:text-3xl prose-h3:mt-10 prose-h3:text-2xl prose-p:mb-8 prose-p:leading-8 prose-a:text-primary prose-a:no-underline hover:prose-a:text-primary-hover prose-strong:font-bold prose-strong:text-ink prose-blockquote:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:text-xl prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-ink prose-hr:my-10 prose-hr:border-line prose-img:rounded-2xl prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-2xl prose-pre:bg-ink prose-pre:px-6 prose-pre:py-6 prose-pre:font-mono prose-pre:text-sm prose-pre:leading-relaxed prose-pre:text-white prose-code:rounded-sm prose-code:bg-line prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-ink prose-ul:mb-8 prose-ol:mb-8 prose-li:my-2 [&_code::before]:content-none [&_code::after]:content-none [&_pre_code]:rounded-none [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-inherit [&_pre_code::before]:content-none [&_pre_code::after]:content-none">
+					<slot />
+				</div>
+			</div>
+		</main>
+		<Footer lang={lang} />
+	</body>
+</html>

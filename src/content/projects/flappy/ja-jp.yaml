@@ -1,0 +1,5 @@
+title: Flappy
+description: 2023年に開発したAgentフレームワーク。関数呼び出し、コードサンドボックス、マルチ言語SDKを備え、本番向けLLM Agentを構築できる。
+source: github
+url: https://github.com/pleisto/flappy
+order: 4

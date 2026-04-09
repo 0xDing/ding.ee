@@ -1,0 +1,5 @@
+title: ethereum.rb
+description: A 2016 Ruby Ethereum library for building, signing, and broadcasting transactions and interacting with smart contracts.
+source: github
+url: https://github.com/EthWorks/ethereum.rb
+order: 6

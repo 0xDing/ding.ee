@@ -1,0 +1,40 @@
+---
+import type { MarkdownHeading } from 'astro'
+import { isValidLocale, LOCALES, type Locale } from '../../i18n/config'
+import BlogPost from '../../layouts/BlogPost.astro'
+import {
+	estimateReadingTime,
+	getAllSlugs,
+	getLocalizedPost,
+	getOriginalLocale,
+	getSlug,
+	renderPost
+} from '../../lib/content'
+
+export async function getStaticPaths() {
+	const slugs = await getAllSlugs()
+	return LOCALES.flatMap(lang =>
+		slugs.map(slug => ({
+			params: { lang, slug },
+			props: { lang, slug }
+		}))
+	)
+}
+
+const { lang, slug } = Astro.params
+if (!isValidLocale(lang)) return Astro.redirect('/')
+const locale = lang as Locale
+
+const post = await getLocalizedPost(slug!, locale)
+if (!post) return Astro.redirect(`/${locale}/`)
+
+const { Content, headings } = await renderPost(post)
+const tocHeadings: MarkdownHeading[] = headings.filter(heading => heading.depth === 2 || heading.depth === 3)
+const readingMinutes = estimateReadingTime(post.body ?? '')
+const postSlug = getSlug(post.id)
+const originalLocale = post.data.original ? undefined : await getOriginalLocale(postSlug)
+---
+
+<BlogPost {...post.data} headings={tocHeadings} readingMinutes={readingMinutes} lang={locale} slug={postSlug} originalLocale={originalLocale}>
+	<Content />
+</BlogPost>

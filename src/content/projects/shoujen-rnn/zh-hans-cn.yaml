@@ -1,0 +1,5 @@
+title: Shoujen-RNN
+description: 基于递归神经网络实现的《王阳明先生传习录》风格文本生成器，2017年开发。
+source: github
+url: https://github.com/0xDing/shoujen-rnn
+order: 9

@@ -1,0 +1,5 @@
+title: Shoujen-RNN
+description: 2017年に開発した、王陽明『伝習録』風の文体を生成する再帰ニューラルネットワークのテキスト生成器。
+source: github
+url: https://github.com/0xDing/shoujen-rnn
+order: 9

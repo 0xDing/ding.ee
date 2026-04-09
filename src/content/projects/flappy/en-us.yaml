@@ -1,0 +1,5 @@
+title: Flappy
+description: A 2023 agent development framework with function calling, code sandboxing, and multi-language SDKs for production-grade LLM agents.
+source: github
+url: https://github.com/pleisto/flappy
+order: 4

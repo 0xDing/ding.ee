@@ -1,0 +1,5 @@
+title: yuren-baichuan-7b
+description: World's first open-source Chinese vision-language model with 7 billion parameters, based on Baichuan-7b.
+source: huggingface
+url: https://huggingface.co/0xDing/yuren-baichuan-7b
+order: 3

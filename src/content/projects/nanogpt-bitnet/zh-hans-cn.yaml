@@ -1,0 +1,5 @@
+title: nanoGPT-bitnet
+description: 2024年开发的 nanoGPT 分支，用 BitNet 的二值神经网络架构替换传统 Linear 层，以降低计算复杂度和内存占用。
+source: github
+url: https://github.com/0xDing/nanoGPT-bitnet
+order: 8
