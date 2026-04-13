@@ -86,7 +86,7 @@ function fallbackLangLabel(post: CollectionEntry<'blog'>): string | undefined {
 								</a>
 							</h2>
 							<p class="mt-5 max-w-md text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
-								{featuredPost.data.description}
+								{featuredPost.data.description.length > 225 ? featuredPost.data.description.slice(0, 225) + '...' : featuredPost.data.description}
 							</p>
 							{
 									fallbackLangLabel(featuredPost) && (
@@ -138,7 +138,7 @@ function fallbackLangLabel(post: CollectionEntry<'blog'>): string | undefined {
 													</a>
 												</h3>
 												<p class="mt-4 text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
-													{post.data.description}
+													{post.data.description.length > 225 ? post.data.description.slice(0, 225) + '...' : post.data.description}
 												</p>
 												{
 													fallbackLangLabel(post) && (
