@@ -1,0 +1,5 @@
+title: "Bongard: Training Machine Intuition"
+description: テキストを生成せずに判断を下すオープンウェイトの System One モデル、Bongard の論文（2026 年）。エンコーダ・デコーダが状態を一度だけ読み、複数の問いがその結果を共有し、判定ヘッドが候補ごとの確率を返す。
+source: arxiv
+url: https://arxiv.org/abs/2609.39111
+order: 1

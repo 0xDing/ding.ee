@@ -18,7 +18,7 @@ if (!isValidLocale(lang)) return Astro.redirect('/')
 const locale = lang as Locale
 
 const projects = await getLocalizedProjects(locale)
-const sources = ['all', 'github', 'appstore', 'huggingface', 'business'] as const
+const sources = ['all', 'github', 'appstore', 'huggingface', 'arxiv', 'business'] as const
 ---
 
 <html lang={BCP47[lang]}>

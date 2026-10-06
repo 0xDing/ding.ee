@@ -1,0 +1,5 @@
+title: "Bongard: Training Machine Intuition"
+description: 2026 年的论文，介绍开放权重的 System One 模型 Bongard：做判断不生成文本，Encoder–Decoder 只读一遍状态，多个问题共享这份编码，判决头直接给出各候选项的概率。
+source: arxiv
+url: https://arxiv.org/abs/2609.39111
+order: 1

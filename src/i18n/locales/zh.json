@@ -29,6 +29,7 @@
 	"projects.filter.github": "GitHub",
 	"projects.filter.appstore": "App Store",
 	"projects.filter.huggingface": "Hugging Face",
+	"projects.filter.arxiv": "arXiv",
 	"projects.filter.business": "商业项目",
 	"about.title": "理解世界，顺手造物",
 	"about.description": "我认为需要通向主动引入 bias 来理解世界。审美是 bias，判断是 bias，创造则是把这些 bias 一点点做进世界里。世界是「头上长角的」。",

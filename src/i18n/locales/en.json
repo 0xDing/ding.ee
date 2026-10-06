@@ -29,6 +29,7 @@
 	"projects.filter.github": "GitHub",
 	"projects.filter.appstore": "App Store",
 	"projects.filter.huggingface": "Hugging Face",
+	"projects.filter.arxiv": "arXiv",
 	"projects.filter.business": "Business",
 	"about.title": "Making Sense of the World, Building Things Along the Way",
 	"about.description": "I believe understanding the world should lead us toward a more self-aware embrace of bias. Taste is bias. Judgment is bias. Creation is the act of slowly inscribing those biases into the world. The world, after all, has horns.",

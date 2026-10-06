@@ -27,7 +27,7 @@ const projects = defineCollection({
 		z.object({
 			title: z.string(),
 			description: z.string(),
-			source: z.enum(['github', 'appstore', 'huggingface', 'business']),
+			source: z.enum(['github', 'appstore', 'huggingface', 'arxiv', 'business']),
 			url: z.string(),
 			icon: z.optional(image()),
 			featured: z.boolean().default(false),

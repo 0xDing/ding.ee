@@ -1,0 +1,5 @@
+title: "Bongard: Training Machine Intuition"
+description: A 2026 paper on Bongard, an open-weight System One model that makes judgments without generating text. An encoder–decoder reads the state once, many questions share that reading, and a trained head returns probabilities over the candidates.
+source: arxiv
+url: https://arxiv.org/abs/2609.39111
+order: 1
