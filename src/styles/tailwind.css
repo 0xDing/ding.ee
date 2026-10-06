@@ -102,8 +102,8 @@
 	}
 
 	.prose .katex-display {
-    	@apply text-foreground;
-  	}
+		@apply text-foreground;
+	}
 
 	:root {
 		--background: #f7f7f9;

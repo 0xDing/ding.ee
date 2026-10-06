@@ -31,8 +31,15 @@ export default function HeroSocialLinks({ links }: HeroSocialLinksProps) {
 									)}>
 									<span className="flex size-8 items-center justify-center overflow-hidden rounded-lg bg-card shadow-md">
 										<span className={cn('size-6', iconClassName)}>
-											<img src={iconSrc} alt="" aria-hidden="true" className={iconDarkSrc ? 'size-full dark:hidden' : 'size-full'} />
-											{iconDarkSrc && <img src={iconDarkSrc} alt="" aria-hidden="true" className="hidden size-full dark:block" />}
+											<img
+												src={iconSrc}
+												alt=""
+												aria-hidden="true"
+												className={iconDarkSrc ? 'size-full dark:hidden' : 'size-full'}
+											/>
+											{iconDarkSrc && (
+												<img src={iconDarkSrc} alt="" aria-hidden="true" className="hidden size-full dark:block" />
+											)}
 										</span>
 									</span>
 								</a>

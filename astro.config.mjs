@@ -2,12 +2,13 @@
 
 import { fileURLToPath } from 'node:url'
 import cloudflare from '@astrojs/cloudflare'
+import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
-import icon from 'astro-icon'
 import { defineConfig } from 'astro/config'
+import icon from 'astro-icon'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 
@@ -34,8 +35,10 @@ export default defineConfig({
 	},
 	integrations: [mdx(), react(), sitemap(), icon()],
 	markdown: {
-		remarkPlugins: [remarkMath],
-		rehypePlugins: [rehypeKatex]
+		processor: unified({
+			remarkPlugins: [remarkMath],
+			rehypePlugins: [rehypeKatex]
+		})
 	},
 	vite: {
 		optimizeDeps: {

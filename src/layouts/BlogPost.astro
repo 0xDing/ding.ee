@@ -17,13 +17,13 @@ type BlogData = CollectionEntry<'blog'>['data']
 
 type Props = Pick<BlogData, 'title' | 'description' | 'pubDate'> &
 	Partial<Pick<BlogData, 'updatedDate' | 'heroImage' | 'tags'>> & {
-			lang?: Locale
-			headings?: MarkdownHeading[]
-			readingMinutes?: number
-			slug?: string
-			fallbackLocale?: Locale
-			originalLocale?: Locale
-		}
+		lang?: Locale
+		headings?: MarkdownHeading[]
+		readingMinutes?: number
+		slug?: string
+		fallbackLocale?: Locale
+		originalLocale?: Locale
+	}
 
 const {
 	title,
@@ -32,13 +32,13 @@ const {
 	updatedDate,
 	heroImage,
 	tags = [],
-		headings = [],
-		readingMinutes,
-		lang: rawLang = 'en-US',
-		slug,
-		fallbackLocale,
-		originalLocale
-	} = Astro.props
+	headings = [],
+	readingMinutes,
+	lang: rawLang = 'en-US',
+	slug,
+	fallbackLocale,
+	originalLocale
+} = Astro.props
 const lang: Locale = rawLang ?? 'en'
 const fallbackHref = fallbackLocale && slug ? localePath(fallbackLocale, slug) : undefined
 const originalHref = originalLocale && slug ? localePath(originalLocale, slug) : undefined

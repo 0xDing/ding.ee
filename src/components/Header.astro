@@ -1,5 +1,4 @@
 ---
-import Icon from './Icon.astro'
 import { getSiteTitle } from '../consts'
 import { LOCALE_LABELS, LOCALES, type Locale } from '../i18n/config'
 import { localePath, t } from '../i18n/utils'
@@ -7,6 +6,7 @@ import HeaderBrand from './header/HeaderBrand.astro'
 import HeaderLanguageMenu from './header/HeaderLanguageMenu.astro'
 import HeaderNavLinks from './header/HeaderNavLinks.astro'
 import HeaderThemeToggle from './header/HeaderThemeToggle.astro'
+import Icon from './Icon.astro'
 
 interface Props {
 	lang: Locale
