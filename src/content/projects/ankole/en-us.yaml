@@ -1,0 +1,6 @@
+title: Ankole
+description: The open-source Claude Tag alternative for company work. Its enterprise Agent Harness and Company Brain assemble company knowledge, live signals, permissions, and tools into the context an agent needs to make a decision and show its evidence.
+source: github
+url: https://github.com/AgentBull/ankole
+order: 1
+icon: "../../../assets/pages/projects/ankole.svg"

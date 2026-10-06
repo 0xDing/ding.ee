@@ -1,0 +1,6 @@
+title: Ankole
+description: 配备公司大脑的开源 Claude Tag 替代方案，也是一套面向企业的 Agent Harness，按当前任务组织企业知识、实时信号、权限和工具，为 Agent 提供决策上下文，并让每项判断附带证据。
+source: github
+url: https://github.com/AgentBull/ankole
+order: 1
+icon: "../../../assets/pages/projects/ankole.svg"
